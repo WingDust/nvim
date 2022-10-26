@@ -1,0 +1,137 @@
+
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({
+    'git',
+    'clone',
+    '--depth',
+    '1',
+    'https://github.com/wbthomason/packer.nvim',
+    install_path
+  })
+  vim.o.runtimepath = vim.fn.stdpath('data') .. '/site/pack/*/start/*,' .. vim.o.runtimepath
+end
+
+-- Autocommand that reloads neovim whenever you save the packer_init.lua file
+vim.cmd [[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost packer_init.lua source <afile> | PackerSync
+  augroup end
+]]
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, 'packer')
+if not status_ok then
+  return
+end
+
+
+return packer.startup(function(use)
+
+  -- Add you plugins here:
+  use 'wbthomason/packer.nvim' -- packer can manage itself
+  -- edit mode
+  use { 'nguyenvukhang/nvim-toggler' }
+  use {
+      'numToStr/Comment.nvim',
+      loaded = true,
+      run = function()
+          print('Comment')
+          require('Comment').setup()
+      end
+  }
+  use 'Vonr/align.nvim'
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
+  use { 
+      'windwp/nvim-autopairs',
+      run = function() require('nvim-autopairs').setup({ }) 
+  end,
+  }
+  use { 
+      'windwp/nvim-ts-autotag',
+      run = function() require('nvim-ts-autotag').setup({ 
+          filetypes = { "html" , "xml" , "vue" , "js" ,"jsx" },
+      }) 
+  end,
+  }
+  use { 'smithbm2316/centerpad.nvim' }
+  use 'andymass/vim-matchup'
+
+  use 'nvim-lua/plenary.nvim'
+  -- :checkhealth telescope
+  use {
+      'nvim-telescope/telescope.nvim',
+      requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  use { "kkharji/sqlite.lua" }
+  use {
+      "nvim-telescope/telescope-frecency.nvim",
+      run = function()
+          require"telescope".load_extension("frecency")
+      end,
+      requires = {"kkharji/sqlite.lua"}
+  }
+
+  use {'stevearc/dressing.nvim'}
+
+  use({'mrjones2014/legendary.nvim'})
+
+  -- 没有 dir 自动创建
+  use 'jghauser/mkdir.nvim'
+
+
+  use {
+  'phaazon/hop.nvim',
+  branch = 'v2', -- optional but strongly recommended
+  config = function()
+    -- you can configure Hop the way you like here; see :h hop-config
+    require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+  end
+}
+-- color scheme
+	use {'shaunsingh/nord.nvim',
+	config = function()
+		--Lua:
+		vim.cmd[[colorscheme nord]]
+	end
+	}
+	use {
+		'xiyaowong/nvim-transparent',
+		config = function()
+		require "transparent".setup {
+			enable = true, -- boolean: enable transparent
+			extra_groups = { -- table/string: additional groups that should be cleared
+			-- In particular, when you set it to 'all', that means all available groups
+
+			-- example of akinsho/nvim-bufferline.lua
+			"BufferLineTabClose",
+			"BufferlineBufferSelected",
+			"BufferLineFill",
+			"BufferLineBackground",
+			"BufferLineSeparator",
+			"BufferLineIndicatorSelected",
+		},
+		exclude = {}, -- table: groups you don't want to clear
+	}
+end
+	}
+
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+  end)
+
+
+
+
+
+
