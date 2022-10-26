@@ -88,6 +88,7 @@ return packer.startup(function(use)
   use 'jghauser/mkdir.nvim'
 
 
+
   use {
   'phaazon/hop.nvim',
   branch = 'v2', -- optional but strongly recommended
@@ -98,7 +99,9 @@ return packer.startup(function(use)
 }
 -- color scheme
 	use {'shaunsingh/nord.nvim',
-	config = function()
+    -- https://github.com/shaunsingh/nord.nvim/issues/113
+    commit = "78f5f001709b5b321a35dcdc44549ef93185e024",
+    config = function()
 		--Lua:
 		vim.cmd[[colorscheme nord]]
 	end
