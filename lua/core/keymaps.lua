@@ -21,7 +21,8 @@ local opt = { noremap = true, silent = true }
 
 
 -- Change leader to a comma
-vim.g.mapleader = '<space>'
+-- vim.g.mapleader = '<Space>'
+vim.g.mapleader = ' '
 
 
 -- emacs way
@@ -34,7 +35,7 @@ map('i', '<C-a>', '<ESC>^i')
 map('i', '<C-e>', '<ESC>$a')
 
 
---map("v","v","V",opt)
+map("v","v","V",opt)
 --map("n","<tab>","%",opt)
 --
 map("n", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
@@ -54,9 +55,35 @@ map('c', '<C-a>', '<home>')
 require('Comment').setup()
 map("v","X","y'>pgvgcc<esc>'>j",opt)
 
+require('nvim-surround').setup()
+
+-- nvim-toggler
+map("n",'<leader>i',"<cmd>lua require('nvim-toggler').toggle<cr>")
+
+-- spectre
+vim.cmd([[
+nnoremap <leader>S <cmd>lua require('spectre').open()<CR>
+
+"search current word
+nnoremap <leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
+vnoremap <leader>s <esc>:lua require('spectre').open_visual()<CR>
+"  search in current file
+nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
+" run command :Spectre
+]])
+
+
+-----------------------------------------------------------
+-- gitsigns.nvim
+-----------------------------------------------------------
+-- Navigation
+map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
 
 --map("n","<M-x>",":Legendary<CR>",opt)
 map("n","<M-x>",":Telescope commands<CR>",opt)
+map("n","<leader>ff","<cmd>lua require('telescope.builtin').find_files()<cr>",opt)
 
 -- hop
 map("n", "f",

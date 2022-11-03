@@ -35,7 +35,21 @@ return packer.startup(function(use)
   -- Add you plugins here:
   use 'wbthomason/packer.nvim' -- packer can manage itself
   -- edit mode
-  use { 'nguyenvukhang/nvim-toggler' }
+  use({
+      "kylechui/nvim-surround",
+      tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+      run = function()
+          require("nvim-surround").setup({
+              -- Configuration here, or leave empty to use defaults
+          })
+      end
+  })
+  use { 
+      'nguyenvukhang/nvim-toggler',
+      config = function() 
+          require('nvim-toggler').setup()
+      end
+  }
   use {
       'numToStr/Comment.nvim',
       loaded = true,
@@ -79,7 +93,12 @@ return packer.startup(function(use)
       end,
       requires = {"kkharji/sqlite.lua"}
   }
+  -- 像编辑buffer 一样编辑文件目录
+  use "elihunter173/dirbuf.nvim"
 
+  use {'nvim-tree/nvim-web-devicons'}
+  -- 文本替换
+  use {'nvim-pack/nvim-spectre'}
   use {'stevearc/dressing.nvim'}
 
   use({'mrjones2014/legendary.nvim'})
@@ -106,27 +125,33 @@ return packer.startup(function(use)
 		vim.cmd[[colorscheme nord]]
 	end
 	}
-	use {
-		'xiyaowong/nvim-transparent',
-		config = function()
-		require "transparent".setup {
-			enable = true, -- boolean: enable transparent
-			extra_groups = { -- table/string: additional groups that should be cleared
-			-- In particular, when you set it to 'all', that means all available groups
+    use {
+        'xiyaowong/nvim-transparent',
+        config = function()
+            require "transparent".setup {
+                enable = true, -- boolean: enable transparent
+                extra_groups = { -- table/string: additional groups that should be cleared
+                -- In particular, when you set it to 'all', that means all available groups
 
-			-- example of akinsho/nvim-bufferline.lua
-			"BufferLineTabClose",
-			"BufferlineBufferSelected",
-			"BufferLineFill",
-			"BufferLineBackground",
-			"BufferLineSeparator",
-			"BufferLineIndicatorSelected",
-		},
-		exclude = {}, -- table: groups you don't want to clear
-	}
-end
-	}
-
+                -- example of akinsho/nvim-bufferline.lua
+                "BufferLineTabClose",
+                "BufferlineBufferSelected",
+                "BufferLineFill",
+                "BufferLineBackground",
+                "BufferLineSeparator",
+                "BufferLineIndicatorSelected",
+            },
+            exclude = {}, -- table: groups you don't want to clear
+        }
+    end
+    }
+    use {
+    'lewis6991/gitsigns.nvim',
+    -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+    config = function()
+        require('gitsigns').setup()
+    end
+    }
 
   if packer_bootstrap then
     require('packer').sync()

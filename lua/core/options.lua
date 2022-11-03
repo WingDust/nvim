@@ -25,7 +25,7 @@ opt.completeopt = 'menuone,noinsert,noselect'  -- Autocomplete options
 -- Neovim UI
 -----------------------------------------------------------
 opt.relativenumber = true
-opt.number = false          -- Show line number
+opt.number = true          -- Show line number
 opt.showmatch = true        -- Highlight matching parenthesis
 opt.foldmethod = 'marker'   -- Enable folding (default 'foldmarker')
 --opt.colorcolumn = '80'      -- Line lenght marker at 80 columns
