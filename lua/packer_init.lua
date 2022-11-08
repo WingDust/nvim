@@ -106,8 +106,6 @@ return packer.startup(function(use)
   -- 没有 dir 自动创建
   use 'jghauser/mkdir.nvim'
 
-
-
   use {
   'phaazon/hop.nvim',
   branch = 'v2', -- optional but strongly recommended
@@ -115,7 +113,7 @@ return packer.startup(function(use)
     -- you can configure Hop the way you like here; see :h hop-config
     require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
   end
-}
+    }
 -- color scheme
 	use {'shaunsingh/nord.nvim',
     -- https://github.com/shaunsingh/nord.nvim/issues/113

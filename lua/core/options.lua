@@ -61,3 +61,8 @@ opt.updatetime = 700        -- ms to wait for trigger an event
 opt.shortmess:append "sI"
 
 
+-- [How to jump to matching angle-bracket &lt; &gt; using %](https://www.reddit.com/r/vim/comments/kr9rnu/how_to_jump_to_matching_anglebracket_using/)
+
+vim.cmd([[
+set matchpairs+=<:>
+]])
