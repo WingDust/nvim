@@ -880,5 +880,11 @@ let &cpo = s:save_cpo
 
 " vim:sts=2:sw=2:
 :let b:match_words = '<template>:</template>'
+
+function DateInsert()
+    $read !date
+endfunction
+
+
 ]])
 -- set matchpairs+=<template>:</template>
