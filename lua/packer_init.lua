@@ -150,6 +150,8 @@ return packer.startup(function(use)
         require('gitsigns').setup()
     end
     }
+    use 'chrisbra/csv.vim'
+
 
   if packer_bootstrap then
     require('packer').sync()

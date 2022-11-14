@@ -885,6 +885,8 @@ function DateInsert()
     $read !date
 endfunction
 
+:filetype plugin on
+
 
 ]])
 -- set matchpairs+=<template>:</template>
