@@ -151,7 +151,8 @@ return packer.startup(function(use)
     end
     }
     use 'chrisbra/csv.vim'
-
+    use 'Olical/conjure'
+    use 'Olical/aniseed'
 
   if packer_bootstrap then
     require('packer').sync()
