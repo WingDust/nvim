@@ -34,6 +34,8 @@ map('i', '<C-n>', '<Down>')
 map('i', '<C-a>', '<ESC>^i')
 map('i', '<C-e>', '<ESC>$a')
 
+map('n', '<C-s>', '/')
+
 
 map("v","v","V",opt)
 --map("n","<tab>","%",opt)
