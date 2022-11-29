@@ -1,4 +1,4 @@
-local _2afile_2a = "/Users/luojiawei/.config/nvim/fnl/init.fnl"
+local _2afile_2a = "C:\\Users\\Administrator\\AppData\\Local\\nvim\\fnl\\init.fnl"
 local _2amodule_name_2a = "init"
 local _2amodule_2a
 do
@@ -38,4 +38,7 @@ local function log()
   return insert_current_pos({("console.log(\"" .. cword .. "\"," .. cword .. ")")})
 end
 vim.api.nvim_create_user_command("Log", log, {bang = true, desc = "This is a description"})
+local function get_cursor_pos()
+  return {vim.fn.line("."), vim.fn.col(".")}
+end
 return _2amodule_2a

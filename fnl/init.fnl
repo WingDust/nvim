@@ -113,3 +113,7 @@
   )
                                     {:bang true
                                      :desc "This is a description"})
+
+(fn get-cursor-pos [] [(vim.fn.line ".") (vim.fn.col ".")])
+
+

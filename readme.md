@@ -1,3 +1,6 @@
 # 外部依赖
-- mac +`brew install luarocks`+
-- 
+# Arch Linux
+- `~/.config/nvim`
+# Mac OS
+# Windows
+- `~/AppData/Local/nvim`

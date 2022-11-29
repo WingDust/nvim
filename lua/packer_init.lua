@@ -153,6 +153,8 @@ return packer.startup(function(use)
     use 'chrisbra/csv.vim'
     use 'Olical/conjure'
     use 'Olical/aniseed'
+    -- use 'MunifTanjim/nui.nvim'
+    use 'chentoast/marks.nvim'
 
   if packer_bootstrap then
     require('packer').sync()
