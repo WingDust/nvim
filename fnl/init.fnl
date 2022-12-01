@@ -112,8 +112,22 @@
     )
   )
                                     {:bang true
-                                     :desc "This is a description"})
+                                     :desc "JS insert  log var "})
 
 (fn get-cursor-pos [] [(vim.fn.line ".") (vim.fn.col ".")])
+
+
+(vim.api.nvim_create_user_command
+  "JsRangeAddDot" 
+  (fn repdot []
+    (vim.cmd "normal gv")
+    (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
+    ) 
+{:bang true
+                                     :desc "range . to ?."}
+  )
+
 
 

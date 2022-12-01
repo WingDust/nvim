@@ -1,6 +1,9 @@
 
 (module demo
-{autoload {nvim aniseed.nvim}}
+{autoload {
+           nvim aniseed.nvim
+          {: assoc : update} aniseed.core
+           }}
 )
 
 ( defn new-split [name]
@@ -46,4 +49,72 @@
       )
     )
   )
-(l-word)
+;; (l-word)
+;; nvim api https://neovim.io/doc/user/api.html test
+;;
+
+(defn +docs [opts to]
+  (update opts :desc (fn [desc] (or desc to))))
+
+(defn kset [modes from to opts]
+  (let [opts  (if 
+                (= (type opts) "table")  opts
+                (= (type opts) "string") {:desc opts})]
+    (vim.keymap.set modes from to (+docs opts to))))
+
+
+(defn replace-selection []
+  (let [[sr sc] (vim.api.nvim_buf_get_mark 0 "<")
+        ;; [sr sc] [(dec sr) sc]
+        [er ec] (vim.api.nvim_buf_get_mark 0 ">")
+        ]
+    (print 
+      sr sc er ec
+      )
+    )
+  )
+
+;; 字符处理
+
+;; (vim.api.nvim_create_user_command
+;;   :ReplaceSelection replace-selection
+;;   {:nargs 1 :desc "Replace selected word with result function"})
+
+;; (vim.api.nvim_create_user_command
+;;   :ReplaceSelection replace-selection
+;;   {:nargs 1 :desc "Replace selected word with result function"})
+
+
+(vim.api.nvim_create_user_command
+  "JsRangeAddDot" 
+  (fn repdot []
+    (vim.cmd "normal gv")
+    (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
+    ) 
+{:bang true
+                                     :desc "range . to ?."}
+  )
+
+;; "'<,'>s/\([^?]\)./\1?."
+
+;; "'<,'>s/\([^?]\)./\1?."
+
+;; (kset :x  :o "RepDot")
+;; asdasd?.sda
+;; (kset :x  :o  ":'<,'>s/\([^?]\)./\1?.")
+
+;; visual line will auto add  `'<,'>s`
+;; (kset :x  :o  ":s/\\([^?]\\)\\./\\1?.")
+;; (kset :x  :o  "<Cr> | :normal gv<Cr>")
+;; (kset :x  :o  ":normal gv | '<,'>s/\\([^?]\\)\\./\\1?.")
+;; (kset :x  :o  "gv <cmd> '<,'>s/\\([^?]\\)\\./\\1?.")
+
+
+
+;;bsdas?.sd
+;; asdasd?.sda
+;; asdasd.sda
+;; asdasd.sda
+;; asdasd.sda
