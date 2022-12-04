@@ -1,4 +1,4 @@
-local _2afile_2a = "C:\\Users\\Administrator\\AppData\\Local\\nvim\\fnl\\init.fnl"
+local _2afile_2a = "fnl/init.fnl"
 local _2amodule_name_2a = "init"
 local _2amodule_2a
 do
@@ -37,8 +37,13 @@ local function log()
   cursor_line_pos()
   return insert_current_pos({("console.log(\"" .. cword .. "\"," .. cword .. ")")})
 end
-vim.api.nvim_create_user_command("Log", log, {bang = true, desc = "This is a description"})
+vim.api.nvim_create_user_command("Log", log, {bang = true, desc = "JS insert  log var "})
 local function get_cursor_pos()
   return {vim.fn.line("."), vim.fn.col(".")}
 end
+local function repdot()
+  vim.cmd("normal gv")
+  return vim.cmd(":'<,'>s/\\([^?]\\)\\./\\1?.")
+end
+vim.api.nvim_create_user_command("JsRangeAddDot", repdot, {bang = true, desc = "range . to ?."})
 return _2amodule_2a

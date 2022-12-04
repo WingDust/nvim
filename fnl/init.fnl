@@ -129,5 +129,33 @@
                                      :desc "range . to ?."}
   )
 
+;; https://github.com/hpointu/mlt.nvim/blob/d7360990051bd9442652773d111221c2b7288101/fnl/more-like-that/main.fnl
+(defn read-word []
+  "Return the word under the cursor"
+  (nvim.fn.expand "<cword>"))
+
+(vim.api.nvim_create_user_command
+  "ToggleWord" 
+  (fn iepdot []
+    (let [
+          cword (nvim.fn.expand "<cword>")
+          ]
+       (if (= cword "true")
+         (nvim.command (.. "normal ciw" "false"))
+         ;; (vim.cmd "false")
+         )
+    ;; (vim.cmd "normal gv")
+    ;; (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
+    ) 
+
+  )
+{:bang true
+                                     :desc "range . to ?."}
+)
+
+
+;; asd?.sad false
 
 
