@@ -1,4 +1,4 @@
-local _2afile_2a = "fnl/init.fnl"
+local _2afile_2a = "/Users/luojiawei/.config/nvim/fnl/init.fnl"
 local _2amodule_name_2a = "init"
 local _2amodule_2a
 do
@@ -46,4 +46,21 @@ local function repdot()
   return vim.cmd(":'<,'>s/\\([^?]\\)\\./\\1?.")
 end
 vim.api.nvim_create_user_command("JsRangeAddDot", repdot, {bang = true, desc = "range . to ?."})
+local function read_word()
+  return nvim.fn.expand("<cword>")
+end
+_2amodule_2a["read-word"] = read_word
+local function iepdot()
+  local cword = nvim.fn.expand("<cword>")
+  if (cword == "true") then
+    return nvim.command(("normal ciw" .. "false"))
+  else
+    return nil
+  end
+end
+vim.api.nvim_create_user_command("ToggleWord", iepdot, {bang = true, desc = "range . to ?."})
+local function bre()
+  return vim.cmd(": s/\\( str\\|:str\\|class\\|:class\\|style\\|:style\\|@click\\|\\> \\)/\\r\\1/g")
+end
+vim.api.nvim_create_user_command("Brea", bre, {bang = true, desc = "range . to ?."})
 return _2amodule_2a

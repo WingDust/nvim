@@ -21,3 +21,4 @@ class Greeting(object):
         notification.send()
 
 # if __name__ == "__main__":
+#

@@ -155,6 +155,13 @@ return packer.startup(function(use)
     use 'Olical/aniseed'
     -- use 'MunifTanjim/nui.nvim'
     use 'chentoast/marks.nvim'
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
 
   if packer_bootstrap then
     require('packer').sync()

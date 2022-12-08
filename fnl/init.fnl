@@ -154,8 +154,26 @@
 {:bang true
                                      :desc "range . to ?."}
 )
+;; 0.8 ... doc_setting[0]
 
+
+(vim.api.nvim_create_user_command
+  "Brea" 
+  (fn bre []
+    (let [
+          ]
+    (vim.cmd ": s/\\( str\\|:str\\|class\\|:class\\|style\\|:style\\|@click\\|\\> \\)/\\r\\1/g")
+    ;; (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
+    ) 
+
+  )
+{:bang true
+                                     :desc "range . to ?."}
+)
 
 ;; asd?.sad false
 
+;; <input style @click class='tr' @blur="checkName" v-model="form.pat_name" placeholder="请输入收件人姓名" />
 
