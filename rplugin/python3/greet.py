@@ -1,6 +1,7 @@
 
 
-from notifypy import Notify
+# from notifypy import Notify
+import csv
 
 
 import pynvim
@@ -15,10 +16,10 @@ class Greeting(object):
     def command_handler(self, args, range):
         self.vim.command('echo "Hello, World!"')
 
-        notification = Notify()
-        notification.title = "Cool Title"
-        notification.message = "Even cooler message."
-        notification.send()
+        # notification = Notify()
+        # notification.title = "Cool Title"
+        # notification.message = "Even cooler message."
+        # notification.send()
 
 # if __name__ == "__main__":
 #
