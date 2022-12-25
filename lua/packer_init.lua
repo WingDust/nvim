@@ -163,6 +163,26 @@ return packer.startup(function(use)
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
 
+    use({
+        "Pocco81/auto-save.nvim",
+        config = function()
+            require("auto-save").setup {
+                -- your config goes here
+                -- or just leave it empty :)
+            }
+        end,
+    })
+    use 'ThePrimeagen/harpoon'
+    use 'nvim-lua/popup.nvim'
+    use {
+        'EthanJWright/vs-tasks.nvim',
+        requires = {
+            'nvim-lua/popup.nvim',
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim'
+        }
+    }
+
   if packer_bootstrap then
     require('packer').sync()
   end

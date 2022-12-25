@@ -81,7 +81,53 @@ endfunction
 if jit.os=='Windows'
     then
 vim.cmd 'source C:/Users/Administrator/AppData/Local/nvim/vim/matchit.vim'
+vim.cmd([[
+  set shell=pwsh\ -NoLogo shellpipe=\| shellxquote=
+    set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
+    set shellredir=\|\ Out-File\ -Encoding\ UTF8
+  set shellredir=\|\ Out-File\ -Encoding\ UTF8
+]])
 end
+
+vim.cmd([[
+" 设置 Markdown 的缩进折叠
+"
+" https://stackoverflow.com/questions/3828606/vim-markdown-folding
+function! MarkdownLevel()
+    let curline = getline(v:lnum)
+    if curline =~ '^# .*$'
+        return ">1"
+    endif
+    if curline =~ '^## .*$'
+        return ">2"
+    endif
+    if curline =~ '^### .*$'
+        return ">3"
+    endif
+    if curline =~ '^#### .*$'
+        return ">4"
+    endif
+    if curline =~ '^##### .*$'
+        return ">5"
+    endif
+    if curline =~ '^###### .*$'
+        return ">6"
+    endif
+    return "="
+endfunction
+
+function! MarkdownFoldText()
+    let foldsize = v:foldend - v:foldstart
+    return getline(v:foldstart).' ('.foldsize.' lines)'
+endfunction
+
+au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+au BufEnter *.md setlocal foldmethod=expr
+au BufEnter *.md setlocal foldtext=MarkdownFoldText()
+
+]])
+
+
 --
 
 local function get_visual_selection()
@@ -161,3 +207,39 @@ require("nvim-tree").setup({
   },
 })
 
+require("harpoon").setup({})
+require("telescope").load_extension('harpoon')
+
+
+
+require("vstask").setup({
+  cache_json_conf = true, -- don't read the json conf every time a task is ran
+  cache_strategy = "last", -- can be "most" or "last" (most used / last used)
+  use_harpoon = true, -- use harpoon to auto cache terminals
+  telescope_keys = { -- change the telescope bindings used to launch tasks
+      vertical = '<C-v>',
+      split = '<C-p>',
+      tab = '<C-t>',
+      current = '<CR>',
+  },
+  autodetect = { -- auto load scripts
+    npm = "on"
+  },
+  terminal = 'toggleterm',
+  term_opts = {
+    vertical = {
+      direction = "vertical",
+      size = "80"
+    },
+    horizontal = {
+      direction = "horizontal",
+      size = "10"
+    },
+    current = {
+      direction = "float",
+    },
+    tab = {
+      direction = 'tab',
+    }
+  }
+})

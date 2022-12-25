@@ -46,6 +46,8 @@ map("v","v","V",opt)
 map("n", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
 map("v", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
 
+map("n","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
+
 map("n","p",'"+p',opt)
 map("n","P",'"+P',opt)
 map("v","P",'"+P',opt)
