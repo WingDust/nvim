@@ -162,6 +162,9 @@ return packer.startup(function(use)
         },
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+    use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
+    use "rafamadriz/friendly-snippets"
+    use "hrsh7th/nvim-cmp"
 
     use({
         "Pocco81/auto-save.nvim",

@@ -1,3 +1,4 @@
+;; todo right <=> left
 (module init
   {autoload {nvim aniseed.nvim}}
   )
