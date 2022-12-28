@@ -164,7 +164,12 @@ return packer.startup(function(use)
     }
     use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
     use "rafamadriz/friendly-snippets"
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
     use "hrsh7th/nvim-cmp"
+    -- ls
+    -- use '
+    use 'neovim/nvim-lspconfig'
 
     use({
         "Pocco81/auto-save.nvim",
