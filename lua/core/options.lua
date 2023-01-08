@@ -78,8 +78,7 @@ endfunction
 
 -- [Vimscript is still our friend](https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/)
 
-if jit.os=='Windows'
-    then
+if jit.os=='Windows' then
 -- vim.cmd 'source C:/Users/Administrator/AppData/Local/nvim/vim/matchit.vim'
 vim.cmd([[
 set shell=elvish
@@ -273,24 +272,111 @@ local cmp = require'cmp'
       -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
       -- ['<C-Space>'] = cmp.mapping.complete(),
-		["<CR>"] = cmp.mapping.confirm({
+		["<tab>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true}), 
       ['<C-e>'] = cmp.mapping.abort(),
       -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
-      -- { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
+        -- { name = 'nvim_lsp' },
+        { name = 'vsnip' }, -- For vsnip users.
+        -- { name = 'luasnip' }, -- For luasnip users.
+        -- { name = 'ultisnips' }, -- For ultisnips users.
+        -- { name = 'snippy' }, -- For snippy users.
+        { name = 'buffer' },
+        { name = "nvim_lsp", group_index = 1 },
+        { name = "nvim_lsp_signature_help", group_index = 1 },
+		{ name = "path", group_index = 2 },
+        })
   })
 
 -----------------------------------------------------------
 -- nvim-lspconfig
 -----------------------------------------------------------
 require'lspconfig'.pyright.setup{}
+
+require'lspconfig'.tsserver.setup {}
+
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    'tsserver',
+    -- 'eslint',
+    -- 'html',
+    -- 'cssls'
+  }
+})
+
+-- require('mason-lspconfig').setup_handlers({
+--   function(server)
+--     lspconfig[server].setup({})
+--   end,
+--   ['tsserver'] = function()
+--     lspconfig.tsserver.setup({
+--       settings = {
+--         completions = {
+--           completeFunctionCalls = true
+--         }
+--       }
+--     })
+--   end
+-- })
+
+
+-----------------------------------------------------------
+-- gui-font-resize
+-----------------------------------------------------------
+-- require("gui-font-resize").setup({ default_size = 10, change_by = 1, bounds = { maximum = 20 } })
+
+
+
+-- 全局变量
+g.autosave = true
+g.timerId = 0
+
+local autosave = vim.api.nvim_create_augroup("autosave",{clear=true})
+
+vim.api.nvim_create_autocmd({"TextChanged","TextChangedI"},{
+    group=autosave,
+    callback = function()
+        print(g.timerId)
+        if (g.autosave==false) then return 
+        else
+            if (g.timerId~=0) then
+                print('sotp timer')
+                vim.fn.timer_stop(g.timerId)
+                g.timerId=0
+            else
+                print('start timer')
+           g.timerId=  vim.fn.timer_start(3000,function ()
+              print('run save')
+              local get_all_buffers = function() return vim.api.nvim_list_bufs()end
+              print(get_all_buffers())
+              for k,v in ipairs(vim.api.nvim_list_bufs()) do
+                  print(vim.api.nvim_buf_get_name(v),vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua'),''==vim.api.nvim_buf_get_name(v) )
+                  if (''==vim.api.nvim_buf_get_name(v)) then goto continue end
+                  if (vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua') ) then goto continue end
+
+                  print(
+                  k,
+                  v,
+                  'acss',
+                  vim.api.nvim_buf_is_valid(v),vim.api.nvim_buf_get_name(v),
+                  ':w '..vim.api.nvim_buf_get_name(v)
+                  )
+                  -- vim.cmd(':w'..)
+                  ::continue:: 
+              end
+
+          end)
+            end
+        end
+
+
+    end
+
+})
+
+
+
