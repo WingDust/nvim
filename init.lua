@@ -54,6 +54,6 @@ end
 -- Import Lua modules
 -- require ('fun')
 -- require('packer_init')
+require('core/keymaps')
 require('lazy_init')
 require('core/options')
--- require('core/keymaps')
