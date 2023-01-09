@@ -122,7 +122,7 @@
   "JsRangeAddDot" 
   (fn repdot []
     (vim.cmd "normal gv")
-    (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?./g")
     ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
     ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
     ) 
@@ -141,8 +141,10 @@
     (let [
           cword (nvim.fn.expand "<cword>")
           ]
-       (if (= cword "true")
-         (nvim.command (.. "normal ciw" "false"))
+       (if  (= cword "true")
+            (nvim.command (.. "normal ciw" "false"))
+            (= cword "false")
+            (nvim.command (.. "normal ciw" "true"))
          ;; (vim.cmd "false")
          )
     ;; (vim.cmd "normal gv")
@@ -153,7 +155,7 @@
 
   )
 {:bang true
-                                     :desc "range . to ?."}
+                                     :desc "flip word"}
 )
 ;; 0.8 ... doc_setting[0]
 
@@ -178,3 +180,12 @@
 
 ;; <input style @click class='tr' @blur="checkName" v-model="form.pat_name" placeholder="请输入收件人姓名" />
 
+(let [x (math.random 64)]
+  (if (= 0 (% x 2))
+      ;; (print "even" x)
+      (print x)
+      (= 0 (% x 9))
+      (print x)
+      ;; (print "multiple of nine" x)
+      (print  "I dunno, something else" x)
+      ))

@@ -111,7 +111,8 @@ return packer.startup(function(use)
   branch = 'v2', -- optional but strongly recommended
   config = function()
     -- you can configure Hop the way you like here; see :h hop-config
-    require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    -- require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    require 'hop'.setup { keys = 'qwertyuiopasdfghjklzxcvbnm' }
   end
     }
 -- color scheme
@@ -165,6 +166,7 @@ return packer.startup(function(use)
     use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
     use "rafamadriz/friendly-snippets"
     use "hrsh7th/nvim-cmp"
+    use 'Wansmer/treesj'
 
   if packer_bootstrap then
     require('packer').sync()

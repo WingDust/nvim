@@ -23,6 +23,7 @@ local opt = { noremap = true, silent = true }
 -- Change leader to a comma
 -- vim.g.mapleader = '<Space>'
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 
 
 -- emacs way
@@ -152,11 +153,11 @@ map("", "T",
   , opt)
 map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
   opt)
-map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("o", "<leader>e",
-  "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
-  , opt)
+map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
+map("o", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>" , opt)
+
+-- map("n", "j", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
+-- map("o", "j", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>" , opt)
 
 -- 
 vim.keymap.set('x', 'aa', function() require'align'.align_to_char(1, true)             end, opt) -- Aligns to 1 character, looking left

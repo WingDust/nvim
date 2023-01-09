@@ -43,7 +43,7 @@ local function get_cursor_pos()
 end
 local function repdot()
   vim.cmd("normal gv")
-  return vim.cmd(":'<,'>s/\\([^?]\\)\\./\\1?.")
+  return vim.cmd(":'<,'>s/\\([^?]\\)\\./\\1?./g")
 end
 vim.api.nvim_create_user_command("JsRangeAddDot", repdot, {bang = true, desc = "range . to ?."})
 local function read_word()
@@ -54,13 +54,25 @@ local function iepdot()
   local cword = nvim.fn.expand("<cword>")
   if (cword == "true") then
     return nvim.command(("normal ciw" .. "false"))
+  elseif (cword == "false") then
+    return nvim.command(("normal ciw" .. "true"))
   else
     return nil
   end
 end
-vim.api.nvim_create_user_command("ToggleWord", iepdot, {bang = true, desc = "range . to ?."})
+vim.api.nvim_create_user_command("ToggleWord", iepdot, {bang = true, desc = "flip word"})
 local function bre()
   return vim.cmd(": s/\\( str\\|:str\\|class\\|:class\\|style\\|:style\\|@click\\|\\> \\)/\\r\\1/g")
 end
 vim.api.nvim_create_user_command("Brea", bre, {bang = true, desc = "range . to ?."})
+do
+  local x = math.random(64)
+  if (0 == (x % 2)) then
+    print(x)
+  elseif (0 == (x % 9)) then
+    print(x)
+  else
+    print("I dunno, something else", x)
+  end
+end
 return _2amodule_2a
