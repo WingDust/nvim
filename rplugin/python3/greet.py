@@ -38,7 +38,6 @@ class Greeting(object):
         d = cn2en_dict["你好"]
         self.nvim.command(f'echo "{d}"')
 
-<<<<<<< HEAD
     @pynvim.command('Dict', nargs='*' )
     def command_handler(self, *args ):
         d = cn2en_dict[str(args[0][0])]
@@ -47,8 +46,6 @@ class Greeting(object):
     @pynvim.command('TestCommandWithArgs',nargs='*')
     def testcommand_with_args(self,*args):
         self.nvim.out_write("Command Call : 'TestCommandWithArgs' and \nargs : " + str(args) + "\n")
-=======
->>>>>>> 627a494e23d00e184b627af6bdad37901f38a437
         # notification = Notify()
         # notification.title = "Cool Title"
         # notification.message = "Even cooler message."

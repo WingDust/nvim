@@ -30,7 +30,7 @@
 
               for k,v in ipairs(vim.api.nvim_list_bufs()) do
                   if (''==vim.api.nvim_buf_get_name(v)) then goto continue end
-                  print(vim.api.nvim_buf_get_name(v),vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua'),''==vim.api.nvim_buf_get_name(v) )
+                  print(vim.api.nvim_buf_get_name(v),vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua'),''==vim.api.nvim_buf_get_name(v),'isdir',vim.fn.isdirectory(vim.api.nvim_buf_get_name(v))~=0 )
                   if (vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua') ) then goto continue end
 
                   print(
