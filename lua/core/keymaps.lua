@@ -118,49 +118,10 @@ map("v","X","y'>pgvgcc<esc>'>j",opt)
 -- ]])
 
 
------------------------------------------------------------
--- gitsigns.nvim
------------------------------------------------------------
--- Navigation
-map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-
 
 --map("n","<M-x>",":Legendary<CR>",opt)
-map("n","<M-x>",":Telescope commands<CR>",opt)
-map("n","<leader>ff","<cmd>lua require('telescope.builtin').find_files()<cr>",opt)
 
--- hop
-map("n", "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-  , {})
-map("n", "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("o", "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
-  , opt)
-map("o", "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
-  , opt)
-map("", "t",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("", "T",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("o", "<leader>e",
-  "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
-  , opt)
 
--- 
-
--- telescope-frecency.nvim
-map("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", opt)
 
 -----------------------------------------------------------
 -- vscode-neovim
