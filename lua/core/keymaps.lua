@@ -33,13 +33,13 @@ map('i', '<C-b>', '<Left>')
 map('i', '<C-p>', '<Up>')
 map('i', '<C-n>', '<Down>')
 map('i', '<C-a>', '<ESC>^i')
-map('i', '<C-e>', '<ESC>^a')
 
+map('i', '<C-e>', '<end>')
 map('c', '<C-a>', '<home>')
 
 map('n', '<C-s>', '/')
 
-map('n', '<C-x><C-c>', '<cmd> xa<cr>')
+map('n', '<C-x><C-c>', ':wa | qa<cr>')
 
 
 map("n","V","<C-v>")
@@ -50,13 +50,11 @@ map("v","v","V")
 -- map("n", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
 -- map("v", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
 
-map("n","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
-map("i","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
-
 map("n","p",'"+p')
 map("n","P",'"+P')
 map("v","P",'"+P')
 map("v","P",'"+P')
+
 
 map("t","<ESC>","<C-\\><C-n>")
 
@@ -76,41 +74,6 @@ map("t","<ESC>","<C-\\><C-n>")
 -- map("n","<C-->","<cmd>:GUIFontSizeDown<CR>")
 -- map("n","<C-+>","<cmd>:GUIFontSizeUp<CR>")
 
-
-require'marks'.setup {
-  -- whether to map keybinds or not. default true
-  default_mappings = true,
-  -- which builtin marks to show. default {}
-  builtin_marks = { ".", "<", ">", "^" },
-  -- whether movements cycle back to the beginning/end of buffer. default true
-  cyclic = true,
-  -- whether the shada file is updated after modifying uppercase marks. default false
-  force_write_shada = false,
-  -- how often (in ms) to redraw signs/recompute mark positions. 
-  -- higher values will have better performance but may cause visual lag, 
-  -- while lower values may cause performance penalties. default 150.
-  refresh_interval = 250,
-  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
-  -- marks, and bookmarks.
-  -- can be either a table with all/none of the keys, or a single number, in which case
-  -- the priority applies to all marks.
-  -- default 10.
-  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-  -- disables mark tracking for specific filetypes. default {}
-  excluded_filetypes = {},
-  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
-  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
-  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
-  -- default virt_text is "".
-  bookmark_0 = {
-    sign = "⚑",
-    virt_text = "hello world",
-    -- explicitly prompt for a virtual line annotation when setting a bookmark from this group.
-    -- defaults to false.
-    annotate = false,
-  },
-  mappings = {}
-}
 
 
 
@@ -133,49 +96,10 @@ map("v","X","y'>pgvgcc<esc>'>j",opt)
 -- ]])
 
 
------------------------------------------------------------
--- gitsigns.nvim
------------------------------------------------------------
--- Navigation
-map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-
 
 --map("n","<M-x>",":Legendary<CR>",opt)
-map("n","<M-x>",":Telescope commands<CR>",opt)
-map("n","<leader>ff","<cmd>lua require('telescope.builtin').find_files()<cr>",opt)
 
--- hop
-map("n", "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-  , {})
-map("n", "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("o", "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
-  , opt)
-map("o", "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
-  , opt)
-map("", "t",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("", "T",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("o", "<leader>e",
-  "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
-  , opt)
 
--- 
-
--- telescope-frecency.nvim
-map("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", opt)
 
 -----------------------------------------------------------
 -- vscode-neovim
@@ -202,23 +126,5 @@ if vim.g.vscode then
 else
 end
 
------------------------------------------------------------
--- LuaSnip
------------------------------------------------------------
-
-vim.cmd([[
-" press <Tab> to expand or jump in a snippet. These can also be mapped separately
-" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
-" -1 for jumping backwards.
-inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-" For changing choices in choiceNodes (not strictly necessary for a basic setup).
-imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-]])
 
 
