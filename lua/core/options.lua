@@ -60,6 +60,14 @@ opt.updatetime = 700        -- ms to wait for trigger an event
 -- Disable nvim intro
 opt.shortmess:append "sI"
 
+vim.cmd([[
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+
+highlight Normal guibg=none
+highlight NonText guibg=none
+]])
+
 
 -- [How to jump to matching angle-bracket &lt; &gt; using %](https://www.reddit.com/r/vim/comments/kr9rnu/how_to_jump_to_matching_anglebracket_using/)
 
