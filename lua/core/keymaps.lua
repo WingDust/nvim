@@ -23,6 +23,7 @@
 -- Change leader to a comma
 -- vim.g.mapleader = '<Space>'
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 
 
 -- emacs way
@@ -32,11 +33,13 @@ map('i', '<C-b>', '<Left>')
 map('i', '<C-p>', '<Up>')
 map('i', '<C-n>', '<Down>')
 map('i', '<C-a>', '<ESC>^i')
-map('i', '<C-e>', '<ESC>$a')
+map('i', '<C-e>', '<ESC>^a')
 
 map('c', '<C-a>', '<home>')
 
 map('n', '<C-s>', '/')
+
+map('n', '<C-x><C-c>', '<cmd> xa<cr>')
 
 
 map("n","V","<C-v>")
@@ -47,10 +50,16 @@ map("v","v","V")
 -- map("n", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
 -- map("v", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
 
+
 map("n","p",'"+p')
 map("n","P",'"+P')
 map("v","P",'"+P')
 map("v","P",'"+P')
+
+map("n","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
+map("i","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
+
+
 
 map("t","<ESC>","<C-\\><C-n>")
 
@@ -62,40 +71,49 @@ map("t","<ESC>","<C-\\><C-n>")
 -- plugin
 -----------------------------------------------------------
 
--- require'marks'.setup {
---   -- whether to map keybinds or not. default true
---   default_mappings = true,
---   -- which builtin marks to show. default {}
---   builtin_marks = { ".", "<", ">", "^" },
---   -- whether movements cycle back to the beginning/end of buffer. default true
---   cyclic = true,
---   -- whether the shada file is updated after modifying uppercase marks. default false
---   force_write_shada = false,
---   -- how often (in ms) to redraw signs/recompute mark positions. 
---   -- higher values will have better performance but may cause visual lag, 
---   -- while lower values may cause performance penalties. default 150.
---   refresh_interval = 250,
---   -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
---   -- marks, and bookmarks.
---   -- can be either a table with all/none of the keys, or a single number, in which case
---   -- the priority applies to all marks.
---   -- default 10.
---   sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
---   -- disables mark tracking for specific filetypes. default {}
---   excluded_filetypes = {},
---   -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
---   -- sign/virttext. Bookmarks can be used to group together positions and quickly move
---   -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
---   -- default virt_text is "".
---   bookmark_0 = {
---     sign = "⚑",
---     virt_text = "hello world",
---     -- explicitly prompt for a virtual line annotation when setting a bookmark from this group.
---     -- defaults to false.
---     annotate = false,
---   },
---   mappings = {}
--- }
+
+-----------------------------------------------------------
+-- font-resize
+-----------------------------------------------------------
+-- map("n","<C-+>","<cmd>:GUIFontSizeUp<CR>")
+-- map("n","<C-->","<cmd>:GUIFontSizeDown<CR>")
+-- map("n","<C-+>","<cmd>:GUIFontSizeUp<CR>")
+
+
+require'marks'.setup {
+  -- whether to map keybinds or not. default true
+  default_mappings = true,
+  -- which builtin marks to show. default {}
+  builtin_marks = { ".", "<", ">", "^" },
+  -- whether movements cycle back to the beginning/end of buffer. default true
+  cyclic = true,
+  -- whether the shada file is updated after modifying uppercase marks. default false
+  force_write_shada = false,
+  -- how often (in ms) to redraw signs/recompute mark positions. 
+  -- higher values will have better performance but may cause visual lag, 
+  -- while lower values may cause performance penalties. default 150.
+  refresh_interval = 250,
+  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+  -- marks, and bookmarks.
+  -- can be either a table with all/none of the keys, or a single number, in which case
+  -- the priority applies to all marks.
+  -- default 10.
+  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+  -- disables mark tracking for specific filetypes. default {}
+  excluded_filetypes = {},
+  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
+  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
+  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
+  -- default virt_text is "".
+  bookmark_0 = {
+    sign = "⚑",
+    virt_text = "hello world",
+    -- explicitly prompt for a virtual line annotation when setting a bookmark from this group.
+    -- defaults to false.
+    annotate = false,
+  },
+  mappings = {}
+}
 
 
 

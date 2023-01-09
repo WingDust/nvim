@@ -122,7 +122,7 @@
   "JsRangeAddDot" 
   (fn repdot []
     (vim.cmd "normal gv")
-    (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    (vim.cmd ":'<,'>s/\\([^?|\\.|\\d]\\)\\./\\1?.")
     ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
     ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
     ) 

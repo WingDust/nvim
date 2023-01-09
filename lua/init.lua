@@ -1,4 +1,4 @@
-local _2afile_2a = "/Users/luojiawei/.config/nvim/fnl/init.fnl"
+local _2afile_2a = "fnl\\init.fnl"
 local _2amodule_name_2a = "init"
 local _2amodule_2a
 do
@@ -43,7 +43,7 @@ local function get_cursor_pos()
 end
 local function repdot()
   vim.cmd("normal gv")
-  return vim.cmd(":'<,'>s/\\([^?]\\)\\./\\1?.")
+  return vim.cmd(":'<,'>s/\\([^?|\\.|\\d]\\)\\./\\1?.")
 end
 vim.api.nvim_create_user_command("JsRangeAddDot", repdot, {bang = true, desc = "range . to ?."})
 local function read_word()
