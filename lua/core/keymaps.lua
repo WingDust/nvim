@@ -10,14 +10,14 @@
 -- c 命令行
 -----------------------------------------------------------
 
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-local opt = { noremap = true, silent = true }
+-- local function map(mode, lhs, rhs, opts)
+--   local options = { noremap = true, silent = true }
+--   if opts then
+--     options = vim.tbl_extend('force', options, opts)
+--   end
+--   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+-- end
+-- local opt = { noremap = true, silent = true }
 
 
 -- Change leader to a comma
@@ -43,21 +43,25 @@ map('n', '<C-x><C-c>', '<cmd> xa<cr>')
 
 
 map("n","V","<C-v>")
-map("v","v","V",opt)
+-- map("v","v","V",opt)
+map("v","v","V")
 --map("n","<tab>","%",opt)
 --
-map("n", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
-map("v", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
+-- map("n", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
+-- map("v", "<tab>" , "<Plug>(matchup-%)", { noremap = false })
+
+
+map("n","p",'"+p')
+map("n","P",'"+P')
+map("v","P",'"+P')
+map("v","P",'"+P')
 
 map("n","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
 map("i","<C-x>b","<cmd>lua require('telescope.builtin').buffers()<cr>",opt)
 
-map("n","p",'"+p',opt)
-map("n","P",'"+P',opt)
-map("v","P",'"+P',opt)
-map("v","P",'"+P',opt)
 
-map("t","<ESC>","<C-\\><C-n>",opt)
+
+map("t","<ESC>","<C-\\><C-n>")
 
 
 
@@ -113,10 +117,8 @@ require'marks'.setup {
 
 
 
-require('Comment').setup()
 map("v","X","y'>pgvgcc<esc>'>j",opt)
 
-require('nvim-surround').setup()
 
 -- nvim-toggler
 -- map("n",'<leader>i',"<cmd>lua require('nvim-toggler').toggle<cr>")
@@ -134,81 +136,10 @@ require('nvim-surround').setup()
 -- ]])
 
 
------------------------------------------------------------
--- gitsigns.nvim
------------------------------------------------------------
--- Navigation
-map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-
 
 --map("n","<M-x>",":Legendary<CR>",opt)
-map("n","<M-x>",":Telescope commands<CR>",opt)
-map("n","<leader>ff","<cmd>lua require('telescope.builtin').find_files()<cr>",opt)
 
--- hop
-map("n", "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-  , {})
-map("n", "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("o", "f",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
-  , opt)
-map("o", "F",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
-  , opt)
-map("", "t",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("", "T",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-  , opt)
-map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
-  opt)
-map("o", "<leader>e",
-  "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
-  , opt)
 
--- 
-vim.keymap.set('x', 'aa', function() require'align'.align_to_char(1, true)             end, opt) -- Aligns to 1 character, looking left
-vim.keymap.set('x', 'as', function() require'align'.align_to_char(2, true, true)       end, opt) -- Aligns to 2 characters, looking left and with previews
-vim.keymap.set('x', 'aw', function() require'align'.align_to_string(false, true, true) end, opt) -- Aligns to a string, looking left and with previews
-vim.keymap.set('x', 'ar', function() require'align'.align_to_string(true, true, true)  end, opt) -- Aligns to a Lua pattern, looking left and with previews
-
--- Example gawip to align a paragraph to a string, looking left and with previews
-vim.keymap.set(
-    'n',
-    'gaw',
-    function()
-        local a = require'align'
-        a.operator(
-            a.align_to_string,
-            { is_pattern = false, reverse = true, preview = true }
-        )
-    end,
-    opt
-)
-
--- Example gaaip to aling a paragraph to 1 character, looking left
-vim.keymap.set(
-    'n',
-    'gaa',
-    function()
-        local a = require'align'
-        a.operator(
-            a.align_to_char,
-            { reverse = true }
-        )
-    end,
-    opt
-)
-
--- telescope-frecency.nvim
-map("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", opt)
 
 -----------------------------------------------------------
 -- vscode-neovim

@@ -61,6 +61,7 @@ opt.updatetime = 700        -- ms to wait for trigger an event
 opt.shortmess:append "sI"
 
 
+
 -- [How to jump to matching angle-bracket &lt; &gt; using %](https://www.reddit.com/r/vim/comments/kr9rnu/how_to_jump_to_matching_anglebracket_using/)
 
 -- set matchpairs+=<:>
@@ -169,6 +170,9 @@ vim.api.nvim_create_user_command(
   { nargs = '*' }
   )
 
+
+
+
 -- Enable Aniseed's automatic compilation and loading of Fennel source code.
 vim.g["aniseed#env"] = {
   module = "init",
@@ -185,143 +189,8 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- empty setup using defaults
-require("nvim-tree").setup()
-
--- OR setup with some options
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
-
-require("harpoon").setup({})
-require("telescope").load_extension('harpoon')
 
 
-
-require("vstask").setup({
-  cache_json_conf = true, -- don't read the json conf every time a task is ran
-  cache_strategy = "last", -- can be "most" or "last" (most used / last used)
-  use_harpoon = true, -- use harpoon to auto cache terminals
-  telescope_keys = { -- change the telescope bindings used to launch tasks
-      vertical = '<C-v>',
-      split = '<C-p>',
-      tab = '<C-t>',
-      current = '<CR>',
-  },
-  autodetect = { -- auto load scripts
-    npm = "on"
-  },
-  terminal = 'toggleterm',
-  term_opts = {
-    vertical = {
-      direction = "vertical",
-      size = "80"
-    },
-    horizontal = {
-      direction = "horizontal",
-      size = "10"
-    },
-    current = {
-      direction = "float",
-    },
-    tab = {
-      direction = 'tab',
-    }
-  }
-})
-
------------------------------------------------------------
--- nvim-cmp
------------------------------------------------------------
-
-  -- Set up nvim-cmp.
-local cmp = require'cmp'
-
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-     	["<C-n>"] = cmp.mapping.select_next_item(),
-      -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      -- ['<C-Space>'] = cmp.mapping.complete(),
-		["<tab>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true}), 
-      ['<C-e>'] = cmp.mapping.abort(),
-      -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-        -- { name = 'nvim_lsp' },
-        { name = 'vsnip' }, -- For vsnip users.
-        -- { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
-        { name = 'buffer' },
-        { name = "nvim_lsp", group_index = 1 },
-        { name = "nvim_lsp_signature_help", group_index = 1 },
-		{ name = "path", group_index = 2 },
-        })
-  })
-
------------------------------------------------------------
--- nvim-lspconfig
------------------------------------------------------------
-require'lspconfig'.pyright.setup{}
-
-require'lspconfig'.tsserver.setup {}
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    'tsserver',
-    -- 'eslint',
-    -- 'html',
-    -- 'cssls'
-  }
-})
-
--- require('mason-lspconfig').setup_handlers({
---   function(server)
---     lspconfig[server].setup({})
---   end,
---   ['tsserver'] = function()
---     lspconfig.tsserver.setup({
---       settings = {
---         completions = {
---           completeFunctionCalls = true
---         }
---       }
---     })
---   end
--- })
 
 
 -----------------------------------------------------------
@@ -377,6 +246,7 @@ vim.api.nvim_create_autocmd({"TextChanged","TextChangedI"},{
     end
 
 })
+
 
 
 
