@@ -96,7 +96,7 @@ return packer.startup(function(use)
   -- 像编辑buffer 一样编辑文件目录
   use "elihunter173/dirbuf.nvim"
 
-  use {'nvim-tree/nvim-web-devicons'}
+  -- use {'nvim-tree/nvim-web-devicons'}
   -- 文本替换
   use {'nvim-pack/nvim-spectre'}
   use {'stevearc/dressing.nvim'}
@@ -165,8 +165,48 @@ return packer.startup(function(use)
     }
     use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
     use "rafamadriz/friendly-snippets"
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
     use "hrsh7th/nvim-cmp"
     use 'Wansmer/treesj'
+    use {'hrsh7th/cmp-buffer'}                -- Completion source
+    use("hrsh7th/cmp-nvim-lsp")
+    use("hrsh7th/cmp-path")
+    use("hrsh7th/cmp-cmdline")
+    -- lsp support
+    -- use '
+    use 'neovim/nvim-lspconfig'
+
+    use {'williamboman/mason.nvim'}           -- Installer for external tools
+  use {'williamboman/mason-lspconfig.nvim'} -- mason extension for lspconfig
+
+    -- use({
+    --     "Pocco81/auto-save.nvim",
+    --     config = function()
+    --         require("auto-save").setup {
+    --             -- your config goes here
+    --             -- or just leave it empty :)
+    --         }
+    --     end,
+    -- })
+    use 'ThePrimeagen/harpoon'
+    use 'nvim-lua/popup.nvim'
+    use {
+        'EthanJWright/vs-tasks.nvim',
+        requires = {
+            'nvim-lua/popup.nvim',
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim'
+        }
+    }
+    use 'ms-jpq/coq_nvim'
+
+    use 'AndrewRadev/splitjoin.vim'
+
+-- use({
+--     "ktunprasert/gui-font-resize.nvim",
+--     config = function() require("gui-font-resize").setup() end,
+-- })
 
   if packer_bootstrap then
     require('packer').sync()

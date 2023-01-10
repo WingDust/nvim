@@ -61,6 +61,7 @@ opt.updatetime = 700        -- ms to wait for trigger an event
 opt.shortmess:append "sI"
 
 
+
 -- [How to jump to matching angle-bracket &lt; &gt; using %](https://www.reddit.com/r/vim/comments/kr9rnu/how_to_jump_to_matching_anglebracket_using/)
 
 -- set matchpairs+=<:>
@@ -78,10 +79,56 @@ endfunction
 
 -- [Vimscript is still our friend](https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/)
 
-if jit.os=='Windows'
-    then
-vim.cmd 'source C:/Users/Administrator/AppData/Local/nvim/vim/matchit.vim'
+if jit.os=='Windows' then
+-- vim.cmd 'source C:/Users/Administrator/AppData/Local/nvim/vim/matchit.vim'
+vim.cmd([[
+set shell=elvish
+  "set shell=pwsh\ -NoLogo shellpipe=\| shellxquote=
+  "  set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
+  "  set shellredir=\|\ Out-File\ -Encoding\ UTF8
+  "set shellredir=\|\ Out-File\ -Encoding\ UTF8
+]])
 end
+
+vim.cmd([[
+" 设置 Markdown 的缩进折叠
+"
+" https://stackoverflow.com/questions/3828606/vim-markdown-folding
+function! MarkdownLevel()
+    let curline = getline(v:lnum)
+    if curline =~ '^# .*$'
+        return ">1"
+    endif
+    if curline =~ '^## .*$'
+        return ">2"
+    endif
+    if curline =~ '^### .*$'
+        return ">3"
+    endif
+    if curline =~ '^#### .*$'
+        return ">4"
+    endif
+    if curline =~ '^##### .*$'
+        return ">5"
+    endif
+    if curline =~ '^###### .*$'
+        return ">6"
+    endif
+    return "="
+endfunction
+
+function! MarkdownFoldText()
+    let foldsize = v:foldend - v:foldstart
+    return getline(v:foldstart).' ('.foldsize.' lines)'
+endfunction
+
+au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+au BufEnter *.md setlocal foldmethod=expr
+au BufEnter *.md setlocal foldtext=MarkdownFoldText()
+
+]])
+
+
 --
 
 local function get_visual_selection()
@@ -123,12 +170,6 @@ vim.api.nvim_create_user_command(
   { nargs = '*' }
   )
 
--- Enable Aniseed's automatic compilation and loading of Fennel source code.
-vim.g["aniseed#env"] = {
-  module = "init",
-  compile = true
-}
-
 ----------
 -- examples for your init.lua
 
@@ -139,26 +180,62 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- empty setup using defaults
-require("nvim-tree").setup()
 
--- OR setup with some options
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
+
+
+
+-----------------------------------------------------------
+-- gui-font-resize
+-----------------------------------------------------------
+-- require("gui-font-resize").setup({ default_size = 10, change_by = 1, bounds = { maximum = 20 } })
+
+
+
+-- 全局变量
+g.autosave = true
+g.timerId = 0
+
+local autosave = vim.api.nvim_create_augroup("autosave",{clear=true})
+
+vim.api.nvim_create_autocmd({"TextChanged","TextChangedI"},{
+    group=autosave,
+    callback = function()
+        print(g.timerId)
+        if (g.autosave==false) then return 
+        else
+            if (g.timerId~=0) then
+                print('sotp timer')
+                vim.fn.timer_stop(g.timerId)
+                g.timerId=0
+            else
+                print('start timer')
+           g.timerId=  vim.fn.timer_start(3000,function ()
+              print('run save')
+              local get_all_buffers = function() return vim.api.nvim_list_bufs()end
+              print(get_all_buffers())
+              for k,v in ipairs(vim.api.nvim_list_bufs()) do
+                  print(vim.api.nvim_buf_get_name(v),vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua'),''==vim.api.nvim_buf_get_name(v) )
+                  if (''==vim.api.nvim_buf_get_name(v)) then goto continue end
+                  if (vim.fn.matchstr(vim.api.nvim_buf_get_name(v),'packer_init.lua') ) then goto continue end
+
+                  print(
+                  k,
+                  v,
+                  'acss',
+                  vim.api.nvim_buf_is_valid(v),vim.api.nvim_buf_get_name(v),
+                  ':w '..vim.api.nvim_buf_get_name(v)
+                  )
+                  -- vim.cmd(':w'..)
+                  ::continue:: 
+              end
+
+          end)
+            end
+        end
+
+
+    end
+
 })
 
 
