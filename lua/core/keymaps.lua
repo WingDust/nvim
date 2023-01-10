@@ -58,6 +58,9 @@ map("v","P",'"+P')
 
 map("t","<ESC>","<C-\\><C-n>")
 
+-- [vim - remapping &gt;&gt; &lt;&lt; (indent commands)](https://stackoverflow.com/questions/8394598/vim-remapping-indent-commands)
+map('n',">",">>")
+map('n',"<","<<")
 
 
 -- map("v","<M-x>",":<Del><Del> Telescope commands",opt)

@@ -1,7 +1,7 @@
 return {
 {
      "kylechui/nvim-surround",
-     run = function()
+     config = function()
          require("nvim-surround").setup({
              -- Configuration here, or leave empty to use defaults
          })
@@ -249,6 +249,14 @@ require('mason-lspconfig').setup({
 
         require'lspconfig'.tsserver.setup {}
    end
+   },
+   {
+       'terryma/vim-expand-region',
+       config = function()
+           map('v','+','<Plug>(expand_region_expand)')
+           map('v','-','<Plug>(expand_region_shrink)')
+       end
+
    }
 
 

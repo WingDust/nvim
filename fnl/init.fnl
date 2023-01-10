@@ -190,3 +190,18 @@
       ;; (print "multiple of nine" x)
       (print  "I dunno, something else" x)
       ))
+(vim.api.nvim_create_user_command
+  "Local" 
+  (fn bre []
+    (let [
+          ]
+    (vim.cmd ":pwd ")
+    ;; (vim.cmd ":'<,'>s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.cmd "<cmd> s/\\([^?]\\)\\./\\1?.")
+    ;; (vim.command ":'<,'>s/\([^?]\)./\1?.")
+    ) 
+
+  )
+{:bang true
+                                     :desc "range . to ?."}
+)
